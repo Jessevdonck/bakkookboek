@@ -1,12 +1,13 @@
 /**
- * Applies the saved theme (or system preference) to <html> before React
- * hydrates, so the page never flashes the wrong theme on load.
+ * Applies the saved theme to <html> before React hydrates, so the page
+ * never flashes the wrong theme on load. Light is the default until the
+ * visitor explicitly toggles dark mode (we don't follow the system
+ * preference here on purpose).
  */
 const THEME_INIT_SCRIPT = `
 (function () {
   try {
-    var stored = localStorage.getItem("theme");
-    var isDark = stored ? stored === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+    var isDark = localStorage.getItem("theme") === "dark";
     document.documentElement.classList.toggle("dark", isDark);
   } catch (e) {}
 })();
