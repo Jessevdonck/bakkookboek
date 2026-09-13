@@ -1,0 +1,74 @@
+# ============================================================================
+# SJABLOON VOOR EEN NIEUW RECEPT
+# ============================================================================
+# Dit bestand wordt zelf overgeslagen door de site (bestanden die met een
+# underscore _ beginnen tellen niet mee) — het is enkel een voorbeeld om
+# van te kopiëren.
+#
+# ZO VOEG JE EEN RECEPT TOE (geen technische kennis nodig):
+#   1. Ga op github.com naar de map content/recipes.
+#   2. Klik op dit bestand (_TEMPLATE.yaml) om het te openen, en dan op het
+#      potlood-icoontje ("Edit this file") rechtsboven.
+#   3. Kopieer de hele inhoud.
+#   4. Ga terug naar de map content/recipes, klik "Add file" → "Create new
+#      file".
+#   5. Geef het bestand een naam die past bij je brood, helemaal in
+#      kleine letters met koppeltekens in plaats van spaties, en eindig op
+#      ".yaml" — bijvoorbeeld: mijn-nieuwe-brood.yaml
+#      (deze naam bepaalt de link naar het recept, dus geen speciale
+#      tekens of hoofdletters gebruiken)
+#   6. Plak de gekopieerde inhoud, en vul de velden hieronder in voor je
+#      eigen recept. Verwijder de #-commentaarregels gerust, die zijn
+#      alleen ter uitleg.
+#   7. Scrol naar onder en klik op de groene knop "Commit changes...".
+#      Klaar! Binnen een minuut staat je nieuwe recept live op de site.
+#
+# TIP: laat een regel gewoon weg als iets niet van toepassing is (bv. geen
+# "crust" nodig, of geen "tip") — alles behalve title/category/yeast/
+# panIngredients/machine is optioneel.
+# ============================================================================
+
+# De titel zoals die op de site verschijnt.
+title: "Naam van het brood"
+
+# Kies exact één van: "Wit brood", "Volkoren", "Rogge", "Spelt", "Meergranen"
+category: "Wit brood"
+
+# Optioneel: een korte omschrijving (1-2 zinnen), getoond op de kaart en de
+# receptpagina. Mag je weglaten.
+description: "Een korte, smakelijke omschrijving van dit brood."
+
+# Wat er in de gistdispenser gaat.
+yeast:
+  amount: "5 g"
+  item: "Bruggeman gist"
+  # note is optioneel, bv. een hoeveelheidstip:
+  # note: "ca. 1/2 zakje"
+
+# Optioneel: een instructie die boven de bakblik-ingrediënten verschijnt,
+# bv. een speciale kneedhaak. Laat deze regel gewoon weg als dat niet nodig
+# is.
+# panNote: "Plaats eerst de speciale kneedhaak in het blik!"
+
+# Wat er in het bakblik gaat, in de volgorde waarin je het toevoegt. Voeg
+# gerust meer of minder regels toe dan hieronder staan — begin elke regel
+# met een koppelteken "- ".
+panIngredients:
+  - amount: "500 g"
+    item: "Aveve Surfina tarwebloem"
+  - amount: "8 g"
+    item: "Zout"
+  - amount: "300 ml"
+    item: "Koud water"
+    # note: "optionele extra uitleg bij dit ingrediënt"
+
+# De instellingen die je op de machine zelf ingeeft.
+machine:
+  menu: "1 (Basisbrood)"
+  # size en crust zijn optioneel:
+  size: "L"
+  crust: "Medium"
+  # note: "een extra opmerking over de instellingen, bv. baktijd"
+
+# Optioneel: een extra baktip, getoond in een apart kadertje.
+# tip: "Een handige tip voor dit recept."

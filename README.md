@@ -13,52 +13,68 @@ npm run dev
 
 Open <http://localhost:3000>.
 
-## Een recept toevoegen of aanpassen
+## Een recept toevoegen (geen technische kennis nodig)
 
-Alle recepten staan in één bestand: [`src/data/recipes.ts`](src/data/recipes.ts).
-Kopieer een bestaand object, geef het een uniek `slug` en het volgende
-`number`, en vul de velden in. De homepage, de filters en de
-receptpagina pikken het automatisch op — je hoeft nergens anders iets
-aan te passen.
+Elk recept is een eigen tekstbestand in [`content/recipes/`](content/recipes/)
+— geen code, geen TypeScript. Je kan een recept toevoegen via de
+GitHub-website, zonder iets te installeren:
 
-De vorm van een recept staat gedocumenteerd in
-[`src/types/recipe.ts`](src/types/recipe.ts). Kort samengevat:
+1. Ga naar de map [`content/recipes`](content/recipes) op GitHub.
+2. Open [`_TEMPLATE.yaml`](content/recipes/_TEMPLATE.yaml), klik op het
+   potlood-icoontje ("Edit this file") en kopieer de inhoud.
+3. Ga terug naar de map, klik **Add file → Create new file**, en geef
+   het een naam als `mijn-nieuwe-brood.yaml` (kleine letters,
+   koppeltekens, geen spaties — deze naam bepaalt de link naar het
+   recept).
+4. Plak de tekst, vul je eigen recept in (het sjabloon legt elk veld
+   uit), en klik onderaan op de groene knop **Commit changes...**.
+5. Klaar. De site bouwt automatisch opnieuw en je recept staat binnen
+   een minuut live.
 
-```ts
-{
-  slug: "mijn-nieuw-brood",       // uniek, gebruikt in de URL
-  number: 7,                       // volgnummer
-  title: "Mijn Nieuw Brood",
-  category: "Wit brood",           // zie Category in recipe.ts
-  description: "Korte intro.",     // optioneel
-  yeast: { amount: "5 g", item: "Bruggeman gist" },
-  panNote: "Plaats eerst de X kneedhaak!", // optioneel
-  panIngredients: [
-    { amount: "500 g", item: "Bloem" },
-    { amount: "300 ml", item: "Koud water" },
-  ],
-  machine: { menu: "1 (Basisbrood)", size: "L", crust: "Medium" },
-  tip: "Een extra baktip.",        // optioneel
-}
+Een ingevuld voorbeeld, zoals [`content/recipes/puur-spelt-ambacht.yaml`](content/recipes/puur-spelt-ambacht.yaml):
+
+```yaml
+title: "Puur Spelt-Ambacht"
+category: "Spelt" # Wit brood, Volkoren, Rogge, Spelt of Meergranen
+description: "Een licht verteerbaar brood met een milde, nootachtige smaak."
+
+yeast:
+  amount: "5 g"
+  item: "Bruggeman gist"
+
+panIngredients:
+  - amount: "300 g"
+    item: "Aveve Volspeltmeel"
+  - amount: "310 ml"
+    item: "Koud water"
+
+machine:
+  menu: "13 (Speltbrood)"
+  size: "L"
 ```
 
-Wil je een nieuwe categorie? Voeg die toe aan de `Category`-union in
-`src/types/recipe.ts` en aan de volgorde-array in
-`src/lib/recipes.ts`.
+De homepage, de zoekfunctie, de categoriefilters en de receptpagina
+pikken elk nieuw bestand automatisch op.
 
-De algemene gebruiksaanwijzing (stappenplan, machine-intro) staat los
-in [`src/data/general-info.ts`](src/data/general-info.ts).
+Liever lokaal in een code-editor werken? Dat kan natuurlijk ook — het
+zijn gewone bestanden in `content/recipes/`. Het volledige datamodel
+staat gedocumenteerd in [`src/types/recipe.ts`](src/types/recipe.ts).
+
+De algemene gebruiksaanwijzing (stappenplan, machine-intro) staat apart
+in [`src/data/general-info.ts`](src/data/general-info.ts) — dat is wel
+gewoon TypeScript, omdat die zelden verandert.
 
 ## Projectstructuur
 
 ```
+content/recipes/          # elk recept is een .yaml-bestand — hier voeg je toe
+  _TEMPLATE.yaml           # kopieer dit voor een nieuw recept
 src/
-  types/recipe.ts        # datamodel (Recipe, Ingredient, ...)
-  data/recipes.ts         # alle recepten — hier voeg je content toe
+  types/recipe.ts         # datamodel (Recipe, Ingredient, ...)
   data/general-info.ts    # algemene gebruiksaanwijzing
-  lib/recipes.ts          # helpers: alle recepten, per slug, per categorie
+  lib/recipes.ts          # leest en valideert content/recipes/*.yaml
   components/             # herbruikbare UI (kaart, ingrediëntenlijst, ...)
-  app/page.tsx             # homepage met categoriefilter
+  app/page.tsx             # homepage met zoeken + categoriefilter
   app/recepten/[slug]/     # receptpagina
   app/instructies/         # gebruiksaanwijzing-pagina
 ```

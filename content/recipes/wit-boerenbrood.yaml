@@ -1,0 +1,23 @@
+title: "Wit Boerenbrood"
+category: "Wit brood"
+description: >-
+  Een klassiek, volumineus witbrood met een volle, traditionele smaak. Ideaal
+  voor dagelijks gebruik.
+
+yeast:
+  amount: "4,5 g"
+  item: "Bruggeman droge gist"
+
+panIngredients:
+  - amount: "500 g"
+    item: "Aveve Classic broodmix wit boerenbrood"
+  - amount: "15 g"
+    item: "Roomboter"
+    note: "optioneel"
+  - amount: "290 ml"
+    item: "Koud kraanwater"
+
+machine:
+  menu: "1 (Basisbrood)"
+  size: "L"
+  crust: "Medium of Dark (naar keuze)"

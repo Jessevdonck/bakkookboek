@@ -4,6 +4,10 @@
  * Keep this file as the single source of truth for what a recipe looks
  * like. When you add a field here, TypeScript will point you to every
  * place that needs to handle it.
+ *
+ * The recipes themselves live as plain YAML files in content/recipes/
+ * (see src/lib/recipes.ts for the loader) — no code editing required
+ * to add one.
  */
 
 /** A single ingredient line, e.g. "400 g Aveve Classic broodmix". */
@@ -37,10 +41,12 @@ export type Category =
   | "Meergranen";
 
 export type Recipe = {
-  /** URL-friendly unique id, e.g. "frans-krokant-brood". */
+  /**
+   * URL-friendly unique id, e.g. "frans-krokant-brood". Derived from the
+   * YAML file's name (content/recipes/frans-krokant-brood.yaml) — not a
+   * field you set inside the file.
+   */
   slug: string;
-  /** Recipe number as it appears in the original book. */
-  number: number;
   title: string;
   category: Category;
   /** Short intro paragraph shown on the card and detail page. */

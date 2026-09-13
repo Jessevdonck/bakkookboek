@@ -1,0 +1,25 @@
+title: "Dagelijks Grijs Brood (Licht Volkoren)"
+category: "Volkoren"
+
+yeast:
+  amount: "5 g"
+  item: "Bruggeman gist"
+
+panIngredients:
+  - amount: "250 g"
+    item: "Aveve Surfina tarwebloem"
+  - amount: "250 g"
+    item: "Aveve Voltarwemeel fijn"
+  - amount: "15 g"
+    item: "Roomboter"
+    note: "of 1 eetlepel olie"
+  - amount: "8 g"
+    item: "Zout"
+    note: "aan de rand strooien"
+  - amount: "320 ml"
+    item: "Koud water"
+
+machine:
+  menu: "1 (Basisbrood)"
+  size: "L"
+  crust: "Medium of Dark naar wens"

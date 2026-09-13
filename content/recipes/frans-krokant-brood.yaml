@@ -1,0 +1,23 @@
+title: "Frans Krokant Brood"
+category: "Wit brood"
+description: >-
+  Klassiek witbrood met een knapperige korst en een luchtige kruim. Bootst
+  traditionele Franse rijstijden na.
+
+yeast:
+  amount: "4 g"
+  item: "Bruggeman gist"
+  note: "ca. 1/2 zakje of 1 afgestreken koffielepel"
+
+panIngredients:
+  - amount: "400 g"
+    item: "Aveve Classic broodmix Frans krokant"
+  - amount: "10 g"
+    item: "Roomboter"
+    note: "optioneel, voor zachtere kruim"
+  - amount: "260 ml"
+    item: "Koud water"
+
+machine:
+  menu: "10 (Frans Brood)"
+  note: "Duurt ongeveer 5 uur en 40 minuten vanwege de lange rijstijd."

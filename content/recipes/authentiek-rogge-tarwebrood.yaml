@@ -1,0 +1,28 @@
+title: "Authentiek Rogge-Tarwebrood"
+category: "Rogge"
+description: >-
+  Een karaktervol, donkerder brood met een licht zurige, diepe smaak dankzij
+  het roggemeel.
+
+yeast:
+  amount: "6 g"
+  item: "Bruggeman gist"
+
+panNote: "Plaats eerst de speciale roggekneedhaak in het blik!"
+
+panIngredients:
+  - amount: "350 g"
+    item: "Aveve Surfina tarwebloem"
+  - amount: "150 g"
+    item: "Aveve Volroggemeel"
+  - amount: "8 g"
+    item: "Zout"
+  - amount: "1 eetlepel"
+    item: "Honing of suiker"
+    note: "helpt bij het rijzen van rogge"
+  - amount: "330 ml"
+    item: "Koud water"
+
+machine:
+  menu: "11 (Roggebrood)"
+  note: "De machine kneedt heel specifiek om de rogge niet te overbelasten."

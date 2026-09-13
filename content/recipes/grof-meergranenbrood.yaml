@@ -1,0 +1,27 @@
+title: "Grof Meergranenbrood"
+category: "Meergranen"
+description: >-
+  Een stevig, donkerder brood boordevol granen, zaden en vezels. Perfect voor
+  een stevige lunch.
+
+yeast:
+  amount: "5 g"
+  item: "Bruggeman droge gist"
+
+panIngredients:
+  - amount: "500 g"
+    item: "Aveve Classic broodmix grof meergranenbrood"
+  - amount: "15-20 g"
+    item: "Roomboter"
+    note: "of 1 eetlepel plantaardige olie"
+  - amount: "300 ml"
+    item: "Koud kraanwater"
+
+machine:
+  # Bron-PDF was hier onduidelijk ("Menu: 1 Menu 7") — vermoedelijk Menu 7.
+  # Controleer dit gerust tegen het menu-overzicht van je machine en pas
+  # aan indien nodig.
+  menu: "7"
+  size: "L"
+
+tip: "Duurt 5u — dat geeft de zwaardere granen extra tijd om vocht op te nemen voor een zachter resultaat."

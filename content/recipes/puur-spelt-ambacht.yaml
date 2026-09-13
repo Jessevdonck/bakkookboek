@@ -1,0 +1,24 @@
+title: "Puur Spelt-Ambacht"
+category: "Spelt"
+description: "Een licht verteerbaar brood met een milde, nootachtige smaak."
+
+yeast:
+  amount: "5 g"
+  item: "Bruggeman gist"
+
+panIngredients:
+  - amount: "300 g"
+    item: "Aveve Volspeltmeel"
+  - amount: "200 g"
+    item: "Aveve Surfina tarwebloem"
+    note: "essentieel voor het volume!"
+  - amount: "8 g"
+    item: "Zout"
+  - amount: "1 eetlepel"
+    item: "Olie"
+  - amount: "310 ml"
+    item: "Koud water"
+
+machine:
+  menu: "13 (Speltbrood)"
+  size: "L"
