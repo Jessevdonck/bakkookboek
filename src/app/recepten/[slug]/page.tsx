@@ -1,8 +1,11 @@
+import { ArrowLeft, Lightbulb } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { IngredientList } from "@/components/IngredientList";
 import { MachineSettingsPanel } from "@/components/MachineSettingsPanel";
+import { PrintButton } from "@/components/PrintButton";
+import { categoryIcons } from "@/lib/category-icons";
 import { getAllRecipes, getRecipeBySlug } from "@/lib/recipes";
 
 export function generateStaticParams() {
@@ -26,16 +29,27 @@ export default async function RecipePage({ params }: PageProps<"/recepten/[slug]
   const recipe = getRecipeBySlug(slug);
   if (!recipe) notFound();
 
+  const Icon = categoryIcons[recipe.category];
+
   return (
     <article className="flex flex-col gap-8">
-      <div>
-        <Link href="/" className="text-sm font-medium text-muted hover:text-accent">
-          ← Alle recepten
+      <div className="no-print flex items-center justify-between">
+        <Link
+          href="/"
+          className="flex items-center gap-1.5 text-sm font-medium text-muted hover:text-accent"
+        >
+          <ArrowLeft className="size-4" />
+          Alle recepten
         </Link>
-        <span className="mt-4 block w-fit rounded-full bg-accent-soft px-2.5 py-0.5 text-xs font-medium text-accent">
+        <PrintButton />
+      </div>
+
+      <div>
+        <span className="flex w-fit items-center gap-1.5 rounded-full bg-accent-soft px-2.5 py-1 text-xs font-medium text-accent">
+          <Icon className="size-3.5" />
           {recipe.category}
         </span>
-        <h1 className="mt-2 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
+        <h1 className="mt-3 font-display text-3xl font-semibold tracking-tight sm:text-4xl">
           {recipe.title}
         </h1>
         {recipe.description && (
@@ -43,12 +57,9 @@ export default async function RecipePage({ params }: PageProps<"/recepten/[slug]
         )}
       </div>
 
-      <div className="grid gap-6 sm:grid-cols-[1fr_auto] sm:items-start">
+      <div className="grid gap-6 lg:grid-cols-[1fr_18rem] lg:items-start">
         <div className="flex flex-col gap-6">
-          <IngredientList
-            title="In de gistdispenser"
-            ingredients={[recipe.yeast]}
-          />
+          <IngredientList title="In de gistdispenser" ingredients={[recipe.yeast]} />
           <IngredientList
             title="In het bakblik"
             note={recipe.panNote}
@@ -56,12 +67,15 @@ export default async function RecipePage({ params }: PageProps<"/recepten/[slug]
           />
         </div>
 
-        <div className="flex w-full flex-col gap-4 sm:w-72">
+        <div className="flex flex-col gap-4 lg:sticky lg:top-24">
           <MachineSettingsPanel machine={recipe.machine} />
           {recipe.tip && (
-            <div className="rounded-2xl border border-card-border bg-accent-soft p-5 text-sm">
-              <p className="font-display font-semibold text-accent">Tip</p>
-              <p className="mt-1 text-foreground">{recipe.tip}</p>
+            <div className="flex gap-3 rounded-2xl border border-border bg-accent-soft p-5 text-sm">
+              <Lightbulb className="size-5 shrink-0 text-accent" />
+              <div>
+                <p className="font-display font-semibold text-accent">Tip</p>
+                <p className="mt-1 text-foreground">{recipe.tip}</p>
+              </div>
             </div>
           )}
         </div>

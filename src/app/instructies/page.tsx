@@ -1,3 +1,4 @@
+import { CircleDot, ListOrdered, Play, Wheat } from "lucide-react";
 import type { Metadata } from "next";
 import { machineIntro, machineModel, usageSteps } from "@/data/general-info";
 
@@ -5,6 +6,8 @@ export const metadata: Metadata = {
   title: "Gebruiksaanwijzing — Bakkookboek",
   description: `Algemene gebruiksaanwijzing voor de ${machineModel}.`,
 };
+
+const stepIcons = [CircleDot, Wheat, ListOrdered, Play];
 
 export default function InstructiesPage() {
   return (
@@ -17,21 +20,21 @@ export default function InstructiesPage() {
         <p className="mt-3 max-w-2xl text-muted">{machineIntro}</p>
       </div>
 
-      <ol className="flex flex-col gap-4">
-        {usageSteps.map((step, index) => (
-          <li
-            key={step.title}
-            className="flex gap-4 rounded-2xl border border-card-border bg-card p-5"
-          >
-            <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-accent font-display text-sm font-semibold text-accent-foreground">
-              {index + 1}
-            </span>
-            <div>
-              <h2 className="font-display font-semibold">{step.title}</h2>
+      <ol className="relative flex flex-col gap-6 border-l border-border pl-8 sm:pl-10">
+        {usageSteps.map((step, index) => {
+          const Icon = stepIcons[index % stepIcons.length];
+          return (
+            <li key={step.title} className="relative">
+              <span className="absolute -left-[2.6rem] flex h-8 w-8 items-center justify-center rounded-full bg-accent text-accent-foreground sm:-left-[3.15rem]">
+                <Icon className="size-4" />
+              </span>
+              <h2 className="font-display font-semibold">
+                {index + 1}. {step.title}
+              </h2>
               <p className="mt-1 text-sm text-muted">{step.description}</p>
-            </div>
-          </li>
-        ))}
+            </li>
+          );
+        })}
       </ol>
     </div>
   );

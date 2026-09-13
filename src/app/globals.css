@@ -1,45 +1,83 @@
 @import "tailwindcss";
 
+/* Manual dark mode: toggled by adding/removing `.dark` on <html>.
+   See src/components/ThemeToggle.tsx and the inline script in layout.tsx
+   that applies it before first paint (no flash of the wrong theme). */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #fbf4e8;
-  --foreground: #3b2a1e;
-  --card: #fffcf6;
-  --card-border: #e8dcc8;
-  --muted: #8a7360;
-  --accent: #b9702e;
-  --accent-foreground: #fffcf6;
-  --accent-soft: #f1e0c8;
+  --background: #faf6f0;
+  --surface: #ffffff;
+  --surface-hover: #f6f0e6;
+  --border: #e8dfd0;
+  --foreground: #2c2418;
+  --muted: #7a6f5e;
+  --accent: #b5651d;
+  --accent-hover: #9a5417;
+  --accent-foreground: #fffaf3;
+  --accent-soft: #f3e3ce;
+  --ring: #b5651d;
+}
+
+.dark {
+  --background: #16130f;
+  --surface: #201b15;
+  --surface-hover: #2a2319;
+  --border: #372e22;
+  --foreground: #f2ece1;
+  --muted: #a89984;
+  --accent: #e0954a;
+  --accent-hover: #eba75e;
+  --accent-foreground: #16130f;
+  --accent-soft: #362b1c;
+  --ring: #e0954a;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-border: var(--border);
   --color-foreground: var(--foreground);
-  --color-card: var(--card);
-  --color-card-border: var(--card-border);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
   --color-accent-foreground: var(--accent-foreground);
   --color-accent-soft: var(--accent-soft);
+  --color-ring: var(--ring);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
   --font-display: var(--font-fraunces);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #201811;
-    --foreground: #f3e9d8;
-    --card: #2a2018;
-    --card-border: #403324;
-    --muted: #b0987f;
-    --accent: #dd9a53;
-    --accent-foreground: #201811;
-    --accent-soft: #3a2c1c;
-  }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Thin, theme-aware scrollbar for the horizontally scrolling filter row. */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 999px;
+}
+
+/* Printing a single recipe should look like a recipe card, not a website. */
+@media print {
+  header,
+  footer,
+  .no-print {
+    display: none !important;
+  }
+  main {
+    max-width: none !important;
+    padding: 0 !important;
+  }
 }

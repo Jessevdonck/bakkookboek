@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fraunces, Geist, Geist_Mono } from "next/font/google";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import { ThemeScript } from "@/components/ThemeScript";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -30,11 +31,15 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="nl"
+      suppressHydrationWarning
       className={`${geistSans.variable} ${geistMono.variable} ${fraunces.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <head>
+        <ThemeScript />
+      </head>
+      <body className="flex min-h-full flex-col">
         <Header />
-        <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-10 sm:px-6">
+        <main className="mx-auto w-full max-w-5xl flex-1 px-4 py-10 sm:px-6">
           {children}
         </main>
         <Footer />

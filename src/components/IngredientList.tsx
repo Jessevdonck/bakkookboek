@@ -1,3 +1,4 @@
+import { Circle } from "lucide-react";
 import type { Ingredient } from "@/types/recipe";
 
 export function IngredientList({
@@ -18,12 +19,13 @@ export function IngredientList({
           {note}
         </p>
       )}
-      <ul className="mt-2 flex flex-col gap-1.5">
+      <ul className="mt-3 flex flex-col divide-y divide-border overflow-hidden rounded-xl border border-border">
         {ingredients.map((ingredient, index) => (
-          <li key={index} className="flex gap-2 text-sm leading-relaxed">
-            <span aria-hidden className="text-accent">
-              •
-            </span>
+          <li
+            key={index}
+            className="flex items-start gap-2.5 bg-surface px-4 py-3 text-sm leading-relaxed"
+          >
+            <Circle className="mt-1 size-2 shrink-0 fill-accent text-accent" />
             <span>
               <span className="font-medium">{ingredient.amount}</span>{" "}
               {ingredient.item}

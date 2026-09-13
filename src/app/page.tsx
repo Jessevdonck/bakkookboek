@@ -2,6 +2,8 @@ import { RecipeBrowser } from "@/components/RecipeBrowser";
 import { getAllRecipes, getCategories } from "@/lib/recipes";
 
 export default function HomePage() {
+  const recipes = getAllRecipes();
+
   return (
     <div className="flex flex-col gap-8">
       <div>
@@ -9,12 +11,12 @@ export default function HomePage() {
           Mijn Panasonic Bakkookboek
         </h1>
         <p className="mt-2 max-w-2xl text-muted">
-          Ambachtelijke broodrecepten op maat van Aveve ingrediënten voor de
-          SD-YR2550SXE.
+          {recipes.length} ambachtelijke broodrecepten op maat van Aveve
+          ingrediënten voor de SD-YR2550SXE.
         </p>
       </div>
 
-      <RecipeBrowser recipes={getAllRecipes()} categories={getCategories()} />
+      <RecipeBrowser recipes={recipes} categories={getCategories()} />
     </div>
   );
 }

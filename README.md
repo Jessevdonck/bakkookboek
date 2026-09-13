@@ -63,35 +63,42 @@ src/
   app/instructies/         # gebruiksaanwijzing-pagina
 ```
 
-## Gratis online zetten (Vercel)
+## Gratis online zetten (GitHub Pages)
 
-Deze app is een standaard Next.js-project, wat Vercel (de makers van
-Next.js) gratis host voor persoonlijke projecten.
+Dit project is al helemaal ingericht voor GitHub Pages: `next.config.ts`
+exporteert een pure statische site en past automatisch het juiste
+basispad toe, en [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
+bouwt en publiceert de site telkens je naar `main` pusht.
 
-1. Zet dit project in een GitHub-repository (bv. via `gh repo create`
-   of de GitHub-website), en push je code:
+1. Maak een (lege) GitHub-repository aan via <https://github.com/new>
+   — bijvoorbeeld genaamd `bakkookboek`. **Voeg geen README/`.gitignore`
+   toe**, dit project heeft die al.
+2. Koppel je lokale repo eraan en push:
 
    ```bash
-   git add -A
-   git commit -m "Initial bakkookboek site"
-   git remote add origin <jouw-repo-url>
+   git remote add origin https://github.com/<jouw-gebruikersnaam>/bakkookboek.git
    git push -u origin main
    ```
 
-2. Ga naar <https://vercel.com>, log in met je GitHub-account (gratis
-   Hobby-plan) en klik op **Add New… → Project**.
-3. Selecteer je `bakkookboek`-repository. Vercel herkent Next.js
-   automatisch — je hoeft niets aan de instellingen te wijzigen.
-4. Klik **Deploy**. Na ongeveer een minuut krijg je een gratis URL
-   zoals `bakkookboek.vercel.app`.
+3. Ga in je nieuwe repo naar **Settings → Pages** en zet **Source** op
+   **GitHub Actions**.
+4. Dat is alles. Ga naar het **Actions**-tabblad om de build te volgen;
+   na ongeveer een minuut staat de site live op
+   `https://<jouw-gebruikersnaam>.github.io/bakkookboek/`.
 
-Elke keer dat je daarna naar `main` pusht, bouwt Vercel de site
+Elke volgende `git push` naar `main` bouwt en publiceert de site
 automatisch opnieuw.
 
-### Alternatief: Netlify of GitHub Pages
+> De workflow leidt het basispad (`/bakkookboek`) automatisch af uit de
+> repositorynaam — hernoem je de repo, dan werkt het gewoon opnieuw
+> zonder dat je iets hoeft aan te passen. Alleen als je de repo
+> `<jouw-gebruikersnaam>.github.io` noemt (een user-site op de root van
+> je domein) laat de workflow het basispad automatisch leeg.
 
-Het project bouwt met `npm run build` en start met `npm run start`,
-dus het werkt ook op elk ander platform dat Next.js ondersteunt (bv.
-Netlify's gratis tier). Voor een puur statische export (geschikt voor
-GitHub Pages) zou je `output: "export"` in `next.config.ts` moeten
-zetten — dat kan met deze site, aangezien alle pagina's statisch zijn.
+### Alternatief: Vercel of Netlify
+
+Het project bouwt met `npm run build` naar een statische `out/`-map,
+dus het werkt ook op elk ander gratis platform voor statische sites
+(Vercel, Netlify, Cloudflare Pages, ...). Verbind daar gewoon je
+GitHub-repository; deze platforms herkennen Next.js automatisch en
+hebben geen extra configuratie nodig.
