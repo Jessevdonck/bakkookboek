@@ -1,0 +1,24 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!-- Bottom shadow band -->
+  <ellipse cx="256" cy="298" rx="224" ry="152" fill="#DE8829" />
+  <!-- Main loaf body -->
+  <ellipse cx="256" cy="280" rx="220" ry="140" fill="#F2A34C" />
+  <!-- Subtle right-side shading -->
+  <path
+    d="M420 220 C444 260 444 320 412 366 C440 320 442 258 420 220 Z"
+    fill="#E9963A"
+  />
+  <!-- Three crust cuts -->
+  <path
+    d="M175 150 C158 190 162 240 190 274 C204 244 202 190 208 152 C197 146 185 146 175 150 Z"
+    fill="#C97A22"
+  />
+  <path
+    d="M239 132 C224 176 228 232 256 268 C270 234 268 176 274 134 C263 128 250 128 239 132 Z"
+    fill="#C97A22"
+  />
+  <path
+    d="M303 150 C288 190 292 240 320 274 C334 244 332 190 338 152 C327 146 314 146 303 150 Z"
+    fill="#C97A22"
+  />
+</svg>

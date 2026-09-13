@@ -47,7 +47,7 @@ function FilterPill({
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-sm font-medium transition-colors ${
+      className={`flex shrink-0 items-center gap-1.5 rounded-full border px-3.5 py-2 text-sm font-medium transition-colors sm:py-1.5 ${
         isActive
           ? "border-accent bg-accent text-accent-foreground"
           : "border-border bg-surface text-muted hover:border-accent/50 hover:text-foreground"

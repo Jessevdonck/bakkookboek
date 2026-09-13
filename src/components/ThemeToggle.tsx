@@ -28,7 +28,7 @@ export function ThemeToggle() {
       type="button"
       onClick={toggle}
       aria-label="Wissel tussen licht en donker thema"
-      className="flex h-9 w-9 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent hover:text-accent"
+      className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-border text-muted transition-colors hover:border-accent hover:text-accent sm:h-9 sm:w-9"
     >
       {isDark === undefined ? null : isDark ? (
         <Sun className="h-4 w-4" />
