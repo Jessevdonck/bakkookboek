@@ -15,9 +15,33 @@ Open <http://localhost:3000>.
 
 ## Een recept toevoegen (geen technische kennis nodig)
 
-Elk recept is een eigen tekstbestand in [`content/recipes/`](content/recipes/)
-— geen code, geen TypeScript. Je kan een recept toevoegen via de
-GitHub-website, zonder iets te installeren:
+Twee manieren, allebei zonder code te schrijven:
+
+### Optie A — het formulier op /admin (aanbevolen)
+
+De site heeft een ingebouwd formulier op `/admin`: titel, categorie,
+ingrediënten met een knop om er meer toe te voegen, machine-instellingen
+— gewone invulvelden, geen bestandsformaat om te leren. Achter een
+wachtwoord, want dit formulier commit rechtstreeks naar de GitHub-repo.
+
+Bij opslaan gebeurt er dit:
+1. Het formulier stuurt de gegevens naar een server-functie
+   ([`src/app/admin/actions.ts`](src/app/admin/actions.ts)).
+2. Die zet het om in een nette `content/recipes/<titel>.yaml` en commit
+   dat bestand rechtstreeks naar GitHub via hun API.
+3. Die commit triggert automatisch een nieuwe deploy (zie hieronder) —
+   binnen ongeveer een minuut staat het recept live.
+
+Dit vereist twee instellingen bij je hosting (zie **Online zetten**
+verderop): `ADMIN_PASSWORD` en `GH_TOKEN`/`GH_REPO`. Zonder die
+instellingen werkt de rest van de site gewoon, maar geeft `/admin` een
+duidelijke foutmelding in plaats van te crashen.
+
+### Optie B — rechtstreeks een bestand aanmaken op GitHub
+
+Elk recept is ook gewoon een eigen tekstbestand in
+[`content/recipes/`](content/recipes/). Handig als je liever geen
+wachtwoord onthoudt, of het formulier niet is ingesteld:
 
 1. Ga naar de map [`content/recipes`](content/recipes) op GitHub.
 2. Open [`_TEMPLATE.yaml`](content/recipes/_TEMPLATE.yaml), klik op het
@@ -73,48 +97,54 @@ src/
   types/recipe.ts         # datamodel (Recipe, Ingredient, ...)
   data/general-info.ts    # algemene gebruiksaanwijzing
   lib/recipes.ts          # leest en valideert content/recipes/*.yaml
+  lib/recipe-yaml.ts      # zet formuliergegevens om naar een .yaml-bestand
+  lib/github-content.ts   # praat met de GitHub API (bestand aanmaken/checken)
+  lib/slugify.ts          # titel -> bestandsnaam/URL
   components/             # herbruikbare UI (kaart, ingrediëntenlijst, ...)
   app/page.tsx             # homepage met zoeken + categoriefilter
   app/recepten/[slug]/     # receptpagina
   app/instructies/         # gebruiksaanwijzing-pagina
+  app/admin/               # formulier om een recept toe te voegen
 ```
 
-## Gratis online zetten (GitHub Pages)
+## Online zetten (Vercel)
 
-Dit project is al helemaal ingericht voor GitHub Pages: `next.config.ts`
-exporteert een pure statische site en past automatisch het juiste
-basispad toe, en [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml)
-bouwt en publiceert de site telkens je naar `main` pusht.
+Deze site heeft een server-functie nodig voor het `/admin`-formulier
+(die praat met de GitHub API), dus een puur statische host zoals GitHub
+Pages volstaat niet meer. **Vercel** is gratis voor persoonlijk gebruik
+en ondersteunt dit soort server-functies rechtstreeks, met automatische
+deploys bij elke push:
 
-1. Maak een (lege) GitHub-repository aan via <https://github.com/new>
-   — bijvoorbeeld genaamd `bakkookboek`. **Voeg geen README/`.gitignore`
-   toe**, dit project heeft die al.
-2. Koppel je lokale repo eraan en push:
+1. Push deze repository naar GitHub (zie hierboven als dat nog niet is
+   gebeurd).
+2. Ga naar <https://vercel.com>, log in met je GitHub-account (gratis
+   Hobby-plan) en klik **Add New… → Project**, en kies je repo. Vercel
+   herkent Next.js automatisch — niets aan te passen, klik **Deploy**.
+3. Ga naar **Settings → Environment Variables** van het project en
+   voeg toe (zie [`.env.local.example`](.env.local.example)):
+   - `ADMIN_PASSWORD` — het wachtwoord voor `/admin`.
+   - `GH_TOKEN` — een GitHub-token (zie hieronder).
+   - `GH_REPO` — `<jouw-gebruikersnaam>/bakkookboek`.
+4. Doe een nieuwe deploy zodat de variabelen actief worden (**Deployments
+   → ⋯ → Redeploy**, of gewoon opnieuw pushen).
 
-   ```bash
-   git remote add origin https://github.com/<jouw-gebruikersnaam>/bakkookboek.git
-   git push -u origin main
-   ```
+Je site staat dan op een gratis `....vercel.app`-adres, en elke
+`git push` naar `main` (ook eentje die het `/admin`-formulier zelf
+maakt) triggert automatisch een nieuwe deploy.
 
-3. Ga in je nieuwe repo naar **Settings → Pages** en zet **Source** op
-   **GitHub Actions**.
-4. Dat is alles. Ga naar het **Actions**-tabblad om de build te volgen;
-   na ongeveer een minuut staat de site live op
-   `https://<jouw-gebruikersnaam>.github.io/bakkookboek/`.
+### Een GitHub-token aanmaken voor `GH_TOKEN`
 
-Elke volgende `git push` naar `main` bouwt en publiceert de site
-automatisch opnieuw.
+1. Ga naar <https://github.com/settings/personal-access-tokens/new>.
+2. Kies **Only select repositories** en selecteer enkel deze repo.
+3. Onder **Repository permissions**, zet **Contents** op
+   **Read and write**. Meer heeft de site niet nodig.
+4. Genereer het token en plak het als `GH_TOKEN` in Vercel (het is maar
+   één keer zichtbaar).
 
-> De workflow leidt het basispad (`/bakkookboek`) automatisch af uit de
-> repositorynaam — hernoem je de repo, dan werkt het gewoon opnieuw
-> zonder dat je iets hoeft aan te passen. Alleen als je de repo
-> `<jouw-gebruikersnaam>.github.io` noemt (een user-site op de root van
-> je domein) laat de workflow het basispad automatisch leeg.
+### Zonder het /admin-formulier?
 
-### Alternatief: Vercel of Netlify
-
-Het project bouwt met `npm run build` naar een statische `out/`-map,
-dus het werkt ook op elk ander gratis platform voor statische sites
-(Vercel, Netlify, Cloudflare Pages, ...). Verbind daar gewoon je
-GitHub-repository; deze platforms herkennen Next.js automatisch en
-hebben geen extra configuratie nodig.
+Werk je liever alleen via optie B hierboven (rechtstreeks een bestand
+aanmaken op GitHub)? Dan is een server-functie niet nodig en kan je de
+site ook gewoon als statische export hosten. Zet daarvoor
+`output: "export"` terug in `next.config.ts` en gebruik een host als
+GitHub Pages, Netlify of Cloudflare Pages.
